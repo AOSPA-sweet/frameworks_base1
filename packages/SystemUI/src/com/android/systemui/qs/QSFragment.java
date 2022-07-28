@@ -510,6 +510,7 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
 
     public void setBrightnessMirrorController(
             BrightnessMirrorController brightnessMirrorController) {
+        mQuickQSPanelController.setBrightnessMirror(brightnessMirrorController);
         mQSPanelController.setBrightnessMirror(brightnessMirrorController);
     }
 
@@ -660,6 +661,8 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         boolean fullyCollapsed = expansion == 0.0f;
         int heightDiff = getHeightDiff();
         float panelTranslationY = translationScaleY * heightDiff;
+
+        mHeader.setExpansion(onKeyguardAndExpanded, expansion, panelTranslationY);
 
         if (expansion < 1 && expansion > 0.99) {
             if (mQuickQSPanelController.switchTileLayout(false)) {
