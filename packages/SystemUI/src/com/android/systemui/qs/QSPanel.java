@@ -357,6 +357,7 @@ public class QSPanel extends LinearLayout implements Tunable {
                 mBrightnessRunnable.run();
             }
         }
+
         public void setBrightnessRunnable(Runnable runnable) {
         mBrightnessRunnable = runnable;
     }
@@ -471,7 +472,7 @@ public class QSPanel extends LinearLayout implements Tunable {
         // Let's first move the tileLayout to the new parent, since that should come first.
         switchToParent((View) newLayout, parent, index);
         index++;
-        
+
         if (mBrightnessView != null) {
             boolean bottom = Dependency.get(TunerService.class).getValue(
                     QS_BRIGHTNESS_POSITION_BOTTOM, 0) == 1;
