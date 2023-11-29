@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright 2014-2020 Paranoid Android
+    Copyright (C) 2020-2023 paranoid Android
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -26,5 +26,8 @@
     <dimen name="bluetooth_dialog_active_device_bottom_margin">4dp</dimen>
 
     <dimen name="custom_qs_panel_padding_top">136dp</dimen>
+
+    <!-- QQS Brightness slider -->
+    <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
 
 </resources>

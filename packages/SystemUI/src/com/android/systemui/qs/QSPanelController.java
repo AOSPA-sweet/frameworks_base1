@@ -19,6 +19,7 @@ package com.android.systemui.qs;
 import static com.android.systemui.classifier.Classifier.QS_SWIPE_SIDE;
 import static com.android.systemui.media.dagger.MediaModule.QS_PANEL;
 import static com.android.systemui.qs.QSPanel.QS_SHOW_BRIGHTNESS;
+import static com.android.systemui.qs.QSPanel.QS_BRIGHTNESS_POSITION_BOTTOM;
 import static com.android.systemui.qs.dagger.QSFragmentModule.QS_USING_MEDIA_PLAYER;
 
 import android.view.MotionEvent;
@@ -59,6 +60,7 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
     private final BrightnessMirrorHandler mBrightnessMirrorHandler;
     private final StatusBarKeyguardViewManager mStatusBarKeyguardViewManager;
     private boolean mListening;
+    private BrightnessMirrorController mBrightnessMirrorController;
 
     private View.OnTouchListener mTileLayoutTouchListener = new View.OnTouchListener() {
         @Override
@@ -91,7 +93,8 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
         mBrightnessSliderController = brightnessSliderFactory.create(getContext(), mView);
         mView.setBrightnessView(mBrightnessSliderController.getRootView());
 
-        mBrightnessController = brightnessControllerFactory.create(mBrightnessSliderController);
+        mBrightnessController = brightnessControllerFactory.create(
+                mBrightnessSliderController.getIconView(), mBrightnessSliderController);
         mBrightnessMirrorHandler = new BrightnessMirrorHandler(mBrightnessController);
         mStatusBarKeyguardViewManager = statusBarKeyguardViewManager;
     }
@@ -113,6 +116,13 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
         updateMediaDisappearParameters();
 
         mTunerService.addTunable(mView, QS_SHOW_BRIGHTNESS);
+        mTunerService.addTunable(mView, QS_BRIGHTNESS_POSITION_BOTTOM);
+        
+        mView.setBrightnessRunnable(() -> {
+            mView.updateResources();
+            updateBrightnessMirror();
+        });
+        
         mView.updateResources();
         if (mView.isListening()) {
             refreshAllTiles();
@@ -133,6 +143,7 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
     @Override
     protected void onViewDetached() {
         mTunerService.removeTunable(mView);
+        mView.setBrightnessRunnable(null);
         mBrightnessMirrorHandler.onQsPanelDettached();
         super.onViewDetached();
     }
@@ -151,6 +162,12 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
         ((PagedTileLayout) mView.getOrCreateTileLayout())
                 .forceTilesRedistribution("Split shade state changed");
         mView.setCanCollapse(!shouldUseSplitNotificationShade);
+    }
+    
+    private void updateBrightnessMirror() {
+        if (mBrightnessMirrorController != null) {
+            mBrightnessSliderController.setMirrorControllerAndMirror(mBrightnessMirrorController);
+        }
     }
 
     /** */
@@ -175,9 +192,10 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
     }
 
     public void setBrightnessMirror(BrightnessMirrorController brightnessMirrorController) {
+    	mBrightnessMirrorController = brightnessMirrorController;
         mBrightnessMirrorHandler.setController(brightnessMirrorController);
     }
-
+    
     /** Update appearance of QSPanel. */
     public void updateResources() {
         mView.updateResources();
@@ -246,4 +264,3 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
         return mView.getPaddingBottom();
     }
 }
-
