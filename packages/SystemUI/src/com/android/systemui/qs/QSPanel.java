@@ -200,7 +200,7 @@ public class QSPanel extends LinearLayout implements Tunable {
         addView(view, 0);
         mBrightnessView = view;
 
-        setBrightnessViewMargin();
+        setBrightnessViewMargin(true);
 
         mMovableContentStartIndex++;
     }
@@ -357,8 +357,9 @@ public class QSPanel extends LinearLayout implements Tunable {
                 mBrightnessRunnable.run();
             }
         }
+    }
 
-        public void setBrightnessRunnable(Runnable runnable) {
+    public void setBrightnessRunnable(Runnable runnable) {
         mBrightnessRunnable = runnable;
     }
 
