@@ -6097,6 +6097,7 @@ public final class Settings {
          * Whether to enable PULSE Edge lights
          * @hide
          */
+
         public static final String AMBIENT_NOTIFICATION_LIGHT = "ambient_notification_light";
 
         /**
