@@ -123,7 +123,7 @@ import com.android.systemui.media.dialog.MediaOutputDialogFactory;
  * battery, carrier info and privacy icons) and also contains the {@link QuickQSPanel}.
  */
 public class QuickStatusBarHeader extends FrameLayout
-            implements StatusBarHeaderMachine.IStatusBarHeaderMachineObserver,BluetoothCallback, NotificationMediaManager.MediaListener, Palette.PaletteAsyncListener, View.OnClickListener, View.OnLongClickListener {
+            implements BluetoothCallback, NotificationMediaManager.MediaListener, Palette.PaletteAsyncListener, View.OnClickListener, View.OnLongClickListener {
 
     private boolean mExpanded;
     private boolean mQsDisabled;
