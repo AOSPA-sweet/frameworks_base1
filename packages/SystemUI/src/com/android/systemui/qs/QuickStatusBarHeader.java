@@ -75,8 +75,6 @@ import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.util.LargeScreenUtils;
 
-import com.bosphere.fadingedgelayout.FadingEdgeLayout;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -132,7 +130,7 @@ public class QuickStatusBarHeader extends FrameLayout
     public float mKeyguardExpansionFraction;
 
     private int colorActive = Utils.getColorAttrDefaultColor(mContext, android.R.attr.colorAccent);
-    private int colorInactive = Utils.getColorAttrDefaultColor(mContext, R.attr.offStateColor);
+    private int colorInactive = Utils.getColorAttrDefaultColor(mContext, R.attr.shadeInactive);
     private int colorLabelActive = Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.textColorPrimaryInverse);
     private int colorLabelInactive = Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
 
@@ -184,7 +182,6 @@ public class QuickStatusBarHeader extends FrameLayout
 
     public QuickStatusBarHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mStatusBarHeaderMachine = new StatusBarHeaderMachine(context);       
         mHandler = new Handler(Looper.getMainLooper());
         mBluetoothEnabled = false;
         mInternetEnabled = false;
@@ -200,12 +197,6 @@ public class QuickStatusBarHeader extends FrameLayout
     protected void onFinishInflate() {
         super.onFinishInflate();
         mHeaderQsPanel = findViewById(R.id.quick_qs_panel);
-
-<<<<<<< HEAD
-=======
-        mQsHeaderLayout = findViewById(R.id.layout_header);
-        mQsHeaderImageView = findViewById(R.id.qs_header_image_view);
-        mQsHeaderImageView.setClipToOutline(true);        
 
         mOpQsContainer = findViewById(R.id.qs_container);
         mOpQsLayout = findViewById(R.id.qs_op_header_layout);
@@ -242,10 +233,6 @@ public class QuickStatusBarHeader extends FrameLayout
 
         mInternetButton.setOnLongClickListener(this);
         mBluetoothButton.setOnLongClickListener(this);
-
-        updateSettings();
-
-        updateResources();
 
         startUpdateInterntTileStateAsync();
         startUpdateBluetoothTileStateAsync();
@@ -408,7 +395,6 @@ public class QuickStatusBarHeader extends FrameLayout
         updateMediaPlayer();
     }
 
-    @Override
     public void setMediaNotificationColor(int color) {
     }
 
@@ -552,7 +538,7 @@ public class QuickStatusBarHeader extends FrameLayout
 
     void updateResources() {
         colorActive = Utils.getColorAttrDefaultColor(mContext, android.R.attr.colorAccent);
-        colorInactive = Utils.getColorAttrDefaultColor(mContext, R.attr.offStateColor);
+        colorInactive = Utils.getColorAttrDefaultColor(mContext, R.attr.shadeInactive);
         colorLabelActive = Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.textColorPrimaryInverse);
         colorLabelInactive = Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
 

@@ -41,6 +41,7 @@ import android.media.session.MediaSession;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.AsyncTask;
+import android.os.UserHandle;
 import android.os.Trace;
 import android.service.notification.NotificationStats;
 import android.service.notification.StatusBarNotification;
