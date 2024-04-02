@@ -25,4 +25,6 @@
     <!-- Bluetooth dialog -->
     <dimen name="bluetooth_dialog_active_device_bottom_margin">4dp</dimen>
 
+    <dimen name="custom_qs_panel_padding_top">136dp</dimen>
+
 </resources>
